@@ -20,11 +20,12 @@ class App extends Component {
         })
         axios
           .get(`https://deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/?count=1` )
-          .then(drawn =>
-              this.setState({
-              card: drawn.data,
-              }),
-              // console.log(drawn.data)
+          .then(drawn => {
+              // this.state.card.push(drawn)
+              this.setState ({
+                card: [...drawn.data.cards],
+              })
+              console.log(drawn.data.cards)}
           )
           .catch(err => {
               console.log(err);
@@ -36,19 +37,37 @@ class App extends Component {
       });
   }
 
+  drawCard = () => {
+    axios
+          .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
+          .then(res => {
+              // this.state.card.push(drawn)
+              let deck = this.state.card; 
+              deck.push(res.data.cards[0])
+              this.setState ({
+                card: deck,
+              })
+              console.log(res.data.cards[0])}
+          )
+          .catch(err => {
+              console.log(err);
+          }) 
+  }
+
   render () {
     return (
       <div className="App">
         <header className="App-header">
           Get cards: 
           {this.state.deckID}
-          card:
-          {this.state.card.cards ? this.state.card.cards.map(card => 
-            <img src={card.image} />
-          ) : null}
-          
-
         </header>
+
+        <body>
+          <button onClick = {this.drawCard}>draw card</button>
+          {this.state.card.length>0 ? <div className="cards">{this.state.card.map(card =>
+              <img className = "card" src={card.image} />
+            )}</div> : null}
+        </body>
       </div>
     );
   }
