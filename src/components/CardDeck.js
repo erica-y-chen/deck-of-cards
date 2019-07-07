@@ -4,28 +4,19 @@ import axios from 'axios';
 
 // this is the container for ALL of '/dashboard'
 class CardDeck extends Component {
-  state = {
-    cardDeck: [],
-  };
+constructor(props){
+    super(props)
+    this.state = {
 
-  componentDidMount() {
-      axios
-      .get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
-      .then(res =>
-        console.log(res),
-        // this.setState({
-        //   cardDeck: res.data,
-        // })
-      )
-      .catch(err => {
-        console.log(err.response.data);
-      });
-  }
+    };
+}
 
 
     render() {
-        return (
-        <div>hello</div>
+        return ( <div className = "body">
+            <div>Deck ID: </div>
+            <div>{this.props.deckID.cards[0].image}</div>
+        </div>
         )
   }
 }
