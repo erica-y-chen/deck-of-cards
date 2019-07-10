@@ -10,10 +10,12 @@ class App extends Component {
     deckID: "",
     card: [],
     drawnCard: [],
-    playerGuess: true, 
+    playerGuess: true,
+    nextCardHigher: "", 
     correct: 0,
     points: 0,
     modern: true,
+    previousCardVal: 0,
   };
 
   componentDidMount() {
@@ -48,7 +50,8 @@ class App extends Component {
       let deck=this.state.card;
       deck.push(this.state.drawnCard)
       this.setState ({
-        card: deck
+        card: deck,
+        previousCardVal: deck.value,
       })
     }
     axios
@@ -64,7 +67,13 @@ class App extends Component {
               
               console.log(this.state.card[this.state.card.length-1].value)
               this.state.drawnCard.value > this.state.card[this.state.card.length-1].value ? 
-                console.log("higher") : console.log("lower")
+                this.setState ({
+                  nextCardHigher: true
+                }) 
+                : 
+                this.setState ({
+                  nextCardHigher: false
+                }) 
               
             })
           .catch(err => {
@@ -103,9 +112,12 @@ class App extends Component {
           <button onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</button>
           <button onClick={this.toggleFalse} className = {!this.state.playerGuess ? "selected" : "unselected"}>Low</button>
           <button onClick = {this.drawCard}>draw card</button>
-          {this.state.card.length>0 ? <div className="cards">{this.state.card.map(card =>
-              <img className = "card" src={card.image} />
-            )}</div> : null}
+          {this.state.card.length>1 ? <div className="cards"> 
+            {this.state.card.map(card =>
+              <><img className = "card" src={card.image} />
+              </>
+            )} 
+            {this.state.nextCardHigher === this.state.playerGuess ? <div>you're right</div> : <div>you're wrong</div> }</div> : null}
         </body>
       </div>
     );
