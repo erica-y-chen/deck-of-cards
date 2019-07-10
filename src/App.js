@@ -10,7 +10,7 @@ class App extends Component {
     deckID: "",
     card: [],
     drawnCard: [],
-    playerGuess: true,
+    playerGuess: null,
     nextCardHigher: "", 
     correct: 0,
     points: 0,
@@ -116,9 +116,23 @@ class App extends Component {
               canPass: true
             })
           }
-      }else (
+      }else ( this.state.Player1 ? 
       this.setState({ 
         message: "you're wrong",
+        player1Pts: this.state.player1Pts + this.state.card.length-1,
+        drawnCard: [],
+        card: [],
+        correct: 0, 
+        Player1: !this.state.Player1, 
+      }) :       
+      
+      this.setState({ 
+        message: "you're wrong",
+        player2Pts: this.state.player2Pts + this.state.card.length-1,
+        drawnCard: [],
+        card: [],
+        correct: 0, 
+        Player1: !this.state.Player1, 
       })
     )
   }
@@ -162,6 +176,7 @@ class App extends Component {
           <div >Remaining Cards: {this.state.remaining}</div>
           {this.state.Player1 ? <div>Player 1</div> : <div>Player 2</div>}
           <div>Player 1 points: {this.state.player1Pts}</div>
+          <div>Player 2 points: {this.state.player2Pts}</div>
           drawn card: <img src={this.state.drawnCard.image} />
           Guess: 
           <button onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</button>
