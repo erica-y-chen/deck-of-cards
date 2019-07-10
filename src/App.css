@@ -1,11 +1,7 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  font-family: proxima-nova, sans-serif;
+  font-weight: 400;
 }
 
 .App-header {
@@ -26,9 +22,21 @@
 .cards {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .card {
   height: 200px;
   width: 140px;
+  margin-top: 20px;
+}
+
+.selected {
+  background-color: orange;
+  border: none;
+}
+
+.unselected {
+  background-color: white;
+  border: none;
 }
