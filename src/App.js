@@ -106,6 +106,39 @@ class App extends Component {
           }) 
   }
 
+
+  drawingCards = () => {
+    this.setState({
+      remaining: this.state.remaining-1, 
+    })
+    axios
+          .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
+          .then(res => {
+              // this.state.card.push(drawn)
+              // let deck = this.state.card; 
+              // deck.push(res.data.cards[0])
+              this.setState ({
+                drawnCard: res.data.cards[0],
+              })
+              console.log(res.data.cards[0].value)
+              
+              console.log(this.state.card[this.state.card.length-1].value)
+
+              res.data.cards[0].value > this.state.card[this.state.card.length-1].value ? 
+                this.setState ({
+                  nextCardHigher: true
+                }) 
+                : 
+                this.setState ({
+                  nextCardHigher: false
+                }) 
+              
+                this.checkGuess();
+            })
+          .catch(err => {
+              console.log(err);
+          }) 
+  }
   
   checkGuess = () => {
 
@@ -130,6 +163,7 @@ class App extends Component {
         card: [],
         correct: 0, 
         Player1: !this.state.Player1, 
+        showModal: true,
       }) :       
       
       this.setState({ 
@@ -142,6 +176,7 @@ class App extends Component {
         showModal: true,
       })
     )
+    
   }
 
 
@@ -174,6 +209,7 @@ class App extends Component {
     this.setState({
       showModal: !this.state.showModal,
     })
+    this.drawingCards();
   }
 
   render () {
