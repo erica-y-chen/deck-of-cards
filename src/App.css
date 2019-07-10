@@ -40,3 +40,7 @@
   background-color: white;
   border: none;
 }
+
+.card-back {
+  cursor: pointer;
+}

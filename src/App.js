@@ -12,7 +12,7 @@ class App extends Component {
     card: [],
     drawnCard: [],
     playerGuess: null,
-    nextCardHigher: "", 
+    nextCardHigher: null, 
     correct: 0,
     points: 0,
     modern: true,
@@ -47,11 +47,11 @@ class App extends Component {
         //   .catch(err => {
         //       console.log(err);
         //   }) 
-      
       })
       .catch(err => {
         console.log(err);
       });
+      this.drawCard();
   }
 
   drawCard = () => {
@@ -188,10 +188,16 @@ class App extends Component {
           <div>Player 1 points: {this.state.player1Pts}</div>
           <div>Player 2 points: {this.state.player2Pts}</div>
           drawn card: <img src={this.state.drawnCard.image} />
-          Guess: 
+          
+          {this.state.drawnCard.length ? <>Guess: 
           <button onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</button>
-          <button onClick={this.toggleFalse} className = {!this.state.playerGuess ? "selected" : "unselected"}>Low</button>
-          <button onClick = {this.drawCard}>draw card</button>
+          <button onClick={this.toggleFalse} className = {!this.state.playerGuess ? "selected" : "unselected"}>Low</button> </>: null}
+          
+          
+          
+          {this.state.playerGuess !== null ? <button onClick = {this.drawCard}>draw card</button> : null}
+          <img className="card-back" src={Clover[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
+          <img className="card" src={this.state.drawnCard.image} />
           {this.state.card.length>1 ? <div className="cards"> 
             {this.state.card.map(card =>
               <><img className = "card" src={card.image} />
