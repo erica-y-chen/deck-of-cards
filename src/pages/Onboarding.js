@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import './onboarding.css'
 import 'aos/dist/aos.css';
 
+import { Link } from 'react-router-dom'
+
 //libraries
 import AOS from 'aos'
 
@@ -11,6 +13,7 @@ import step1 from '../images/draw-card.svg'
 import step2 from '../images/next-card.svg'
 import step3 from '../images/card-is-drawn.svg'
 import step4 from '../images/poker.svg'
+import points from '../images/hand.svg'
 
 
 //components
@@ -26,19 +29,25 @@ class Onboarding extends Component {
       <div>
         <div className="onboarding-header" data-aos="zoom-out-up" data-aos-duration="1200">
             <div className = "high-low-logo">
-                <div className="onboarding-intro">Welcome to</div>
                 <img className="logo" src ={Logo} />
-                <div className="game-title">high-low</div>
+                <div className="game-title">high/low</div>
+                <div className="game-description">a fun and simple card game for two that will keep you guessing</div>
             </div>
-            <div className="game-description">a simple and fun card game for two that will keep you guessing</div>
+            <Link to="/high-low"><button className="get-started-header">Play Game</button></Link>
         </div>
 
+        <div className="header">Instructions</div>
         <section className="instructions">
-            <Instructions title="1." stepImg = {step1} description = "A card is drawn at the beginning of your turn."/>
-            <Instructions title="2." stepImg = {step2}/>
-            <Instructions title="3." stepImg = {step3}/>
-            <Instructions title="4." stepImg = {step4}/>
+            <Instructions title="Step 1" stepImg = {step1} description = "A card is drawn at the beginning of your turn."/>
+            <Instructions title="Step 2" stepImg = {step2} description = "Guess if the next card drawn is going to be higher or lower than the current card"/>
+            <Instructions title="Step 3" stepImg = {step3} description = "Once you've picked your choice, draw the next card"/>
+            <Instructions title="Step 4" stepImg = {step4} description = "If you're wrong, the turn goes over to the second player. If you're right, you have the chance to guess again"/>
         </section>
+
+        <div className="header">How to Win</div>
+        <Instructions title="Points" stepImg={points} description = "Whenever you guess a higher/lower value correctly, the current card is added to your pile. If you make 3 correct guesses in a row, you can elect to pass their turn to the other player. however, if you guess incorrectly, you will get a point for every card in your pile at that time (i.e 3 cards = 3 points). The game is then turned over to the other player and the pile of drawn cards is then cleared. The game continues until all of the cards in the deck have been drawn and the player with the least number of points at the end wins."/>
+
+        <Link to="/high-low"><button className="get-started">Play Game</button></Link>
       </div>
     );
   }
