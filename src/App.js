@@ -4,6 +4,7 @@ import CardDeck from './components/CardDeck.js'
 import logo from './logo.svg';
 import './App.css';
 import {Clover, Diamond, Spades, Hearts} from './components/CardDeckModern'
+import ChangePlayerModal from "./components/ChangePlayerModal.js";
 
 class App extends Component {
   state = {
@@ -22,6 +23,7 @@ class App extends Component {
     player2Pts: 0,
     remaining: 0,
     Player1: true,
+    showModal: false,
   };
 
   componentDidMount() {
@@ -133,6 +135,7 @@ class App extends Component {
         card: [],
         correct: 0, 
         Player1: !this.state.Player1, 
+        showModal: true,
       })
     )
   }
@@ -157,21 +160,28 @@ class App extends Component {
       card: [],
       correct: 0, 
       Player1: !this.state.Player1, 
+      showModal: true,
+    })
+  }
+
+  triggerModal = () => {
+    this.setState({
+      showModal: !this.state.showModal,
     })
   }
 
   render () {
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           Get cards: 
           {this.state.deckID}
-        </header>
+        </header> */}
 
 
         <img src={Clover[1]} />
 
-
+        <ChangePlayerModal show={this.state.showModal} triggerModal = {this.triggerModal}/>
         <body>
           <div >Remaining Cards: {this.state.remaining}</div>
           {this.state.Player1 ? <div>Player 1</div> : <div>Player 2</div>}
