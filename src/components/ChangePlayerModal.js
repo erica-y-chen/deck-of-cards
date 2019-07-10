@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './changePlayerModal.css'
+import './css/changePlayerModal.css'
 import cards from '../images/hand.svg'
 import axios from 'axios';
 

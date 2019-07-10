@@ -1,9 +1,36 @@
 .onboarding-intro {
-    margin-top: 150px;
+    margin-right: 20px;
     font-size: 30px;
     font-weight: 400;
 }
 
 .game-description {
     margin-top: 20px;
+}
+
+.logo {
+
+    width: 50px;
+    height: auto;
+  }
+
+.game-title{
+    font-size: 30px;
+    font-weight: 800;
+    margin-left: 10px;
+}
+
+.high-low-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.instructions {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
