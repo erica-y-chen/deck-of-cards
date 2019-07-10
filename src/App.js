@@ -35,6 +35,20 @@ class App extends Component {
           deckID: res.data.deck_id,
           remaining: res.data.remaining
         })
+        axios
+        .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
+        .then(res => {
+            // this.state.card.push(drawn)
+            // let deck = this.state.card; 
+            // deck.push(res.data.cards[0])
+            this.setState ({
+              drawnCard: res.data.cards[0],
+            })
+            console.log(res.data.cards[0])
+          })
+        .catch(err => {
+            console.log(err);
+        }) 
         // axios
         //   .get(`https://deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/?count=1` )
         //   .then(drawn => {
@@ -51,19 +65,18 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
-      this.drawCard();
   }
 
   drawCard = () => {
-    if(this.state.drawnCard) {
-      let deck=this.state.card;
-      deck.push(this.state.drawnCard)
-      this.setState ({
-        remaining: this.state.remaining-1, 
-        card: deck,
-        previousCardVal: deck.value,
-      })
-    }
+    console.log(this.state.card)
+    let deck=this.state.card;
+    deck.push(this.state.drawnCard)
+                 this.setState ({
+                    remaining: this.state.remaining-1, 
+                    card: deck,
+                    previousCardVal: deck.value,
+                  })
+
     axios
           .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
           .then(res => {
@@ -73,20 +86,11 @@ class App extends Component {
               this.setState ({
                 drawnCard: res.data.cards[0],
               })
-              console.log(res.data.cards[0])
+              console.log(res.data.cards[0].value)
               
               console.log(this.state.card[this.state.card.length-1].value)
-          //     if (this.state.drawnCard.value === "ACE") {
-          //       let faceCard = this.state.drawnCard; 
-          //       faceCard.value === "1";
-          //       this.setState({
-          //         drawnCard: faceCard,
-          //       })
-          //       return "1"
-          // }
 
-
-              this.state.drawnCard.value > this.state.card[this.state.card.length-1].value ? 
+              res.data.cards[0].value > this.state.card[this.state.card.length-1].value ? 
                 this.setState ({
                   nextCardHigher: true
                 }) 
@@ -162,6 +166,8 @@ class App extends Component {
       Player1: !this.state.Player1, 
       showModal: true,
     })
+
+    
   }
 
   triggerModal = () => {
@@ -189,21 +195,21 @@ class App extends Component {
           <div>Player 2 points: {this.state.player2Pts}</div>
           drawn card: <img src={this.state.drawnCard.image} />
           
-          {this.state.drawnCard.length ? <>Guess: 
+          Guess: 
           <button onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</button>
-          <button onClick={this.toggleFalse} className = {!this.state.playerGuess ? "selected" : "unselected"}>Low</button> </>: null}
+          <button onClick={this.toggleFalse} className = {this.state.playerGuess===false? "selected" : "unselected"}>Low</button> 
           
           
           
           {this.state.playerGuess !== null ? <button onClick = {this.drawCard}>draw card</button> : null}
           <img className="card-back" src={Clover[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
           <img className="card" src={this.state.drawnCard.image} />
-          {this.state.card.length>1 ? <div className="cards"> 
+          <div className="cards"> 
             {this.state.card.map(card =>
               <><img className = "card" src={card.image} />
               </>
             )} 
-            {this.state.message}</div> : null}
+            {this.state.message}</div> 
             <div>Correct: {this.state.correct}</div>
             {this.state.canPass ? <button onClick={this.passPlayer}>Pass</button> : null}
         </body>
