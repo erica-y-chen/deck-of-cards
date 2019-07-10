@@ -16,6 +16,12 @@ class App extends Component {
     points: 0,
     modern: true,
     previousCardVal: 0,
+    result: '',
+    canPass: false,
+    player1Pts: 0,
+    player2Pts: 0,
+    remaining: 0,
+    Player1: true,
   };
 
   componentDidMount() {
@@ -24,7 +30,8 @@ class App extends Component {
       .get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
       .then(res => {
         this.setState ({
-          deckID: res.data.deck_id
+          deckID: res.data.deck_id,
+          remaining: res.data.remaining
         })
         // axios
         //   .get(`https://deckofcardsapi.com/api/deck/${res.data.deck_id}/draw/?count=1` )
@@ -50,6 +57,7 @@ class App extends Component {
       let deck=this.state.card;
       deck.push(this.state.drawnCard)
       this.setState ({
+        remaining: this.state.remaining-1, 
         card: deck,
         previousCardVal: deck.value,
       })
@@ -66,6 +74,16 @@ class App extends Component {
               console.log(res.data.cards[0])
               
               console.log(this.state.card[this.state.card.length-1].value)
+          //     if (this.state.drawnCard.value === "ACE") {
+          //       let faceCard = this.state.drawnCard; 
+          //       faceCard.value === "1";
+          //       this.setState({
+          //         drawnCard: faceCard,
+          //       })
+          //       return "1"
+          // }
+
+
               this.state.drawnCard.value > this.state.card[this.state.card.length-1].value ? 
                 this.setState ({
                   nextCardHigher: true
@@ -75,10 +93,34 @@ class App extends Component {
                   nextCardHigher: false
                 }) 
               
+                this.checkGuess();
             })
           .catch(err => {
               console.log(err);
           }) 
+  }
+
+  
+  checkGuess = () => {
+
+    if (this.state.nextCardHigher === this.state.playerGuess && this.state.correct < 3) {
+          if(this.state.correct < 2) {
+            this.setState({
+              correct: this.state.correct + 1,
+              message: "you're correct",
+            })
+          } else if (this.state.correct === 2) {
+            this.setState({
+              correct: this.state.correct + 1,
+              message: "you're correct",
+              canPass: true
+            })
+          }
+      }else (
+      this.setState({ 
+        message: "you're wrong",
+      })
+    )
   }
 
 
@@ -91,6 +133,16 @@ class App extends Component {
   toggleFalse = () => {
     this.setState ({
       playerGuess: false,
+    })
+  }
+
+  passPlayer = () => {
+    console.log('passing')
+    this.setState({
+      drawnCard: [],
+      card: [],
+      correct: 0, 
+      Player1: !this.state.Player1, 
     })
   }
 
@@ -107,6 +159,9 @@ class App extends Component {
 
 
         <body>
+          <div >Remaining Cards: {this.state.remaining}</div>
+          {this.state.Player1 ? <div>Player 1</div> : <div>Player 2</div>}
+          <div>Player 1 points: {this.state.player1Pts}</div>
           drawn card: <img src={this.state.drawnCard.image} />
           Guess: 
           <button onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</button>
@@ -117,7 +172,9 @@ class App extends Component {
               <><img className = "card" src={card.image} />
               </>
             )} 
-            {this.state.nextCardHigher === this.state.playerGuess ? <div>you're right</div> : <div>you're wrong</div> }</div> : null}
+            {this.state.message}</div> : null}
+            <div>Correct: {this.state.correct}</div>
+            {this.state.canPass ? <button onClick={this.passPlayer}>Pass</button> : null}
         </body>
       </div>
     );
