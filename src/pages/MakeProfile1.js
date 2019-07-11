@@ -106,7 +106,7 @@ class MakeProfile extends Component {
             <div data-aos-duration="800"  data-aos-delay="300" className={this.state.avatar2[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile2(2) } /></div>
           </section>
 
-       <Link to="/high-low"><button className="get-started" onClick={() => this.props.makeAvatar(this.state.profileSelected,  this.state.profileSelected2, this.state.player1Name, this.state.player2Name)}>Next</button></Link>
+       <Link to="/high-low"><button className="get-started" onClick={() => this.props.makeAvatar(this.state.profileSelected,  this.state.profileSelected2, this.state.player1Name, this.state.player2Name)}>Play</button></Link>
       </div>
     );
   }
