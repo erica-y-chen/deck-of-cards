@@ -258,11 +258,15 @@ class HiLowGame extends Component {
                 <img className="logo" src ={Logo} />
                 <div className="game-title">high/low</div>
             </div>
+            <div className = "header-buttons">
+              <div className= "instructions-button">How to Play</div>
+              <div className= "theme-button">Change Theme</div>
+            </div>
         </div>
 
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={this.props.player1.avatar} className="game-avatar" />{this.props.player1.name}</div>
+            <div className="player"><img src={this.props.player1.avatar} className="game-avatar" />Player 1: {this.props.player1.name}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
 
@@ -272,19 +276,18 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={this.props.player2.avatar} className="game-avatar" />{this.props.player2.name}</div>
+            <div className="player"><img src={this.props.player2.avatar} className="game-avatar" />Player 2: {this.props.player2.name}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 
         </div>
 
-        <body className="game-content">
-
-          <div className="card-deck">
+        <div className="card-deck">
             {this.state.playerGuess !== null ? <button onClick = {this.drawCard}>draw card</button> : null}
             <img className="card-back" src={modernDeck.CLUBS[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
             <img className="card" src={this.state.modern ? modernDeck[this.state.drawnCard.suit][this.state.drawnCard.value] : this.state.drawnCard.image} />
           </div>
+        <body className="game-content">
             {this.state.canPass ? <button onClick={this.passPlayer}>Pass</button> : null}
           
             <div className = "guess-modal">

@@ -10,13 +10,19 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-
+    align-items: center;
 }
 
 .game-description {
     margin-left: 20px;
     font-style: italic;
     padding-top: 10px;
+}
+
+.header-buttons {
+    display: flex;
+    flex-direction: row;
+
 }
 
 .logo {
@@ -57,6 +63,19 @@ a {
     width: 100%;
     margin-bottom: 20px;
 }
+
+.instructions-button {
+    color: #FF6473;
+    margin-right: 40px;
+}
+
+.instructions-button:hover {
+    color: #FF6473;
+    margin-right: 40px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 
 .get-started{
     width: 95%;
