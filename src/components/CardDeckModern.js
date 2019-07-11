@@ -65,10 +65,11 @@ import hearts13 from '../images/card_deck_modern/2x/heart-13.png'
 
 
 // this is the container for ALL of '/dashboard'
-let Clover = [cardBack, clover1, clover2, clover3, clover4, clover5, clover6, clover7, clover8, clover9, clover10, clover11, clover12, clover13]
-let Diamond = [cardBack, diamond1, diamond2, diamond3, diamond4, diamond5, diamond6, diamond7, diamond8, diamond9, diamond10, diamond11, diamond12, diamond13]
-let Spades = [cardBack, spades1, spades2, spades3, spades4, spades5, spades6, spades7, spades8, spades9, spades10, spades11, spades12, spades13]
-let Hearts = [cardBack, hearts1, hearts2, hearts3, hearts4, hearts5, hearts6, hearts7, hearts8, hearts9, hearts10, hearts11, hearts12, hearts13]
+let modernDeck = {
+CLUBS: [cardBack, clover1, clover2, clover3, clover4, clover5, clover6, clover7, clover8, clover9, clover10, clover11, clover12, clover13],
+DIAMONDS: [cardBack, diamond1, diamond2, diamond3, diamond4, diamond5, diamond6, diamond7, diamond8, diamond9, diamond10, diamond11, diamond12, diamond13],
+SPADES: [cardBack, spades1, spades2, spades3, spades4, spades5, spades6, spades7, spades8, spades9, spades10, spades11, spades12, spades13],
+HEARTS: [cardBack, hearts1, hearts2, hearts3, hearts4, hearts5, hearts6, hearts7, hearts8, hearts9, hearts10, hearts11, hearts12, hearts13]
+}
 
-
-export {Clover, Diamond, Spades, Hearts}
+export {modernDeck}

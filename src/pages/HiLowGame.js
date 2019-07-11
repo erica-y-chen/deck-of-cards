@@ -11,7 +11,7 @@ import 'aos/dist/aos.css';
 
 //images 
 import Logo from '../images/high-low-logo.svg'
-import {Clover, Diamond, Spades, Hearts} from '../components/CardDeckModern'
+import {modernDeck} from '../components/CardDeckModern'
 import profile1 from '../images/profiles/boy.svg'
 import profile2 from '../images/profiles/girl.svg'
 
@@ -26,8 +26,7 @@ class HiLowGame extends Component {
       nextCardHigher: null, 
       correct: 0,
       points: 0,
-      modern: true,
-      previousCardVal: 0,
+      modern: false,
       result: '',
       canPass: false,
       player1Pts: 0,
@@ -50,9 +49,18 @@ class HiLowGame extends Component {
         axios
         .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
         .then(res => {
-            // this.state.card.push(drawn)
-            // let deck = this.state.card; 
-            // deck.push(res.data.cards[0])
+
+            //checking for special values
+            if(res.data.cards[0].value === "ACE") {
+              res.data.cards[0].value = 1; 
+            } else if (res.data.cards[0].value === "QUEEN") {
+              res.data.cards[0].value = 12;
+            } else if (res.data.cards[0].value === "KING") {
+              res.data.cards[0].value = 13;
+            } else if (res.data.cards[0].value === "JACK") {
+              res.data.cards[0].value = 11;
+            }
+
             this.setState ({
               drawnCard: res.data.cards[0],
             })
@@ -86,15 +94,23 @@ class HiLowGame extends Component {
                  this.setState ({
                     remaining: this.state.remaining-1, 
                     card: deck,
-                    previousCardVal: deck.value,
                   })
 
     axios
           .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
           .then(res => {
-              // this.state.card.push(drawn)
-              // let deck = this.state.card; 
-              // deck.push(res.data.cards[0])
+
+              //checking for special values
+              if(res.data.cards[0].value === "ACE") {
+                res.data.cards[0].value = 1; 
+              } else if (res.data.cards[0].value === "QUEEN") {
+                res.data.cards[0].value = 12;
+              } else if (res.data.cards[0].value === "KING") {
+                res.data.cards[0].value = 13;
+              } else if (res.data.cards[0].value === "JACK") {
+                res.data.cards[0].value = 11;
+              }
+              
               this.setState ({
                 drawnCard: res.data.cards[0],
               })
@@ -126,9 +142,18 @@ class HiLowGame extends Component {
     axios
           .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
           .then(res => {
-              // this.state.card.push(drawn)
-              // let deck = this.state.card; 
-              // deck.push(res.data.cards[0])
+              
+              //checking for special values
+              if(res.data.cards[0].value === "ACE") {
+                res.data.cards[0].value = 1; 
+              } else if (res.data.cards[0].value === "QUEEN") {
+                res.data.cards[0].value = 12;
+              } else if (res.data.cards[0].value === "KING") {
+                res.data.cards[0].value = 13;
+              } else if (res.data.cards[0].value === "JACK") {
+                res.data.cards[0].value = 11;
+              }
+
               this.setState ({
                 drawnCard: res.data.cards[0],
               })
@@ -215,6 +240,12 @@ class HiLowGame extends Component {
     this.drawingCards();
   }
 
+  toggleModern = () => {
+    this.setState({
+      modern: !this.state.modern,
+    })
+  }
+
   render () {
     AOS.init();
     
@@ -251,8 +282,8 @@ class HiLowGame extends Component {
 
           <div className="card-deck">
             {this.state.playerGuess !== null ? <button onClick = {this.drawCard}>draw card</button> : null}
-            <img className="card-back" src={Clover[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
-            <img className="card" src={this.state.drawnCard.image} />
+            <img className="card-back" src={modernDeck.CLUBS[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
+            <img className="card" src={this.state.modern ? modernDeck[this.state.drawnCard.suit][this.state.drawnCard.value] : this.state.drawnCard.image} />
           </div>
             {this.state.canPass ? <button onClick={this.passPlayer}>Pass</button> : null}
           
@@ -263,12 +294,14 @@ class HiLowGame extends Component {
               <div onClick={this.toggleFalse} className = {this.state.playerGuess===false? "selected" : "unselected"}>Low</div> 
             </div>
           </div>
-
+          <button onClick = {this.toggleModern}>Modern</button>
           <div className="cards"> 
           <div>Correct: {this.state.correct}</div>
-            {this.state.card.map(card =>
-              <><img className = "card-deck" src={card.image} />
-              </>
+            {this.state.card.map(card => <>
+              {this.state.modern ? <img className = "card-deck" src={modernDeck[card.suit][card.value]} />
+              : <img className = "card-deck" src={card.image} /> }
+              
+            </>
             )} 
           </div> 
 
