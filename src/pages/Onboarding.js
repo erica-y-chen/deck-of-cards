@@ -27,7 +27,7 @@ class Onboarding extends Component {
     
     return (
       <div>
-        <div className="onboarding-header" data-aos="zoom-out-up" data-aos-duration="1200">
+        <div className="onboarding-header">
             <div className = "high-low-logo">
                 <img className="logo" src ={Logo} />
                 <div className="game-title">high/low</div>

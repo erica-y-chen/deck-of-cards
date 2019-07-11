@@ -16,24 +16,27 @@ import profile1 from '../images/profiles/boy.svg'
 import profile2 from '../images/profiles/girl.svg'
 
 class HiLowGame extends Component {
-  state = {
-    deckID: "",
-    card: [],
-    drawnCard: [],
-    playerGuess: null,
-    nextCardHigher: null, 
-    correct: 0,
-    points: 0,
-    modern: true,
-    previousCardVal: 0,
-    result: '',
-    canPass: false,
-    player1Pts: 0,
-    player2Pts: 0,
-    remaining: 0,
-    Player1: true,
-    showModal: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      deckID: "",
+      card: [],
+      drawnCard: [],
+      playerGuess: null,
+      nextCardHigher: null, 
+      correct: 0,
+      points: 0,
+      modern: true,
+      previousCardVal: 0,
+      result: '',
+      canPass: false,
+      player1Pts: 0,
+      player2Pts: 0,
+      remaining: 0,
+      Player1: true,
+      showModal: false,
+    };
+  }
 
   componentDidMount() {
     let ID = ""
@@ -228,7 +231,7 @@ class HiLowGame extends Component {
 
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={profile1} className="game-avatar" />Player 1</div>
+            <div className="player"><img src={this.props.player1.avatar} className="game-avatar" />{this.props.player1.name}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
 
@@ -264,7 +267,7 @@ class HiLowGame extends Component {
           <div className="cards"> 
           <div>Correct: {this.state.correct}</div>
             {this.state.card.map(card =>
-              <><img className = "card-in-deck" src={card.image} />
+              <><img className = "card-deck" src={card.image} />
               </>
             )} 
           </div> 
