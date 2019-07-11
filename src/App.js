@@ -18,17 +18,21 @@ class App extends Component {
   state = {
     player1: {avatar: {}, name: ''},
     player2: {avatar: {}, name: ''},
-    avatars: [profile1, profile4, profile2, profile3],
+    avatars: [profile1, profile2, profile3, profile4],
   }
 
-  player1Avatar = (key, name) => { 
-    console.log('hello' + key + name)
+  player1Avatar = (key, key2, name, name2) => { 
+    console.log('hello' + key + key2 + name2 +name)
     let playerOne = this.state.player1;
+    let playerTwo = this.state.player2;
     playerOne.avatar = this.state.avatars[key];
     playerOne.name = name; 
+    playerTwo.avatar = this.state.avatars[key2];
+    playerTwo.name = name2;
     
     this.setState({
       player1: playerOne,
+      player2: playerTwo,
     })
   }
 
@@ -38,7 +42,7 @@ class App extends Component {
       <div className = "App">
         <Route exact path="/" component = {Onboarding} />
         <Route path = "/profile" render={(routeProps) => ( <MakeProfile {...routeProps} makeAvatar= {this.player1Avatar} />  )} />
-        <Route path="/high-low" render={(routeProps) => (<Game {...routeProps} player1= {this.state.player1} />  )} />
+        <Route path="/high-low" render={(routeProps) => (<Game {...routeProps} player1= {this.state.player1} player2= {this.state.player2} />  )} />
 
         
     

@@ -241,7 +241,7 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={profile2} className="game-avatar" />Player 2</div>
+            <div className="player"><img src={this.props.player2.avatar} className="game-avatar" />{this.props.player2.name}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 

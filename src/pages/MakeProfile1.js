@@ -36,7 +36,7 @@ class MakeProfile extends Component {
   selectProfile = (key) => {
     console.log("selected this one" + key)
     const selectedAvatar = [false, false, false, false];
-    selectedAvatar[key-1] = !selectedAvatar[key-1];
+    selectedAvatar[key] = !selectedAvatar[key];
     this.setState ({ 
       avatars: selectedAvatar,
       profileSelected: key,
@@ -46,7 +46,7 @@ class MakeProfile extends Component {
   selectProfile2 = (key) => {
     console.log("selected this one" + key)
     const selectedAvatar = [false, false, false, false];
-    selectedAvatar[key-1] = !selectedAvatar[key-1];
+    selectedAvatar[key] = !selectedAvatar[key];
     this.setState ({ 
       avatar2: selectedAvatar,
       profileSelected2: key,
@@ -80,10 +80,10 @@ class MakeProfile extends Component {
 
         <div className="header">Choose your avatar</div>
         <section className="instructions">
-          <div data-aos-duration="800"  className={this.state.avatars[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile(1) } /></div>
-          <div  data-aos-duration="800"  data-aos-delay="100" className={this.state.avatars[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile(4) } /></div>
-          <div  data-aos-duration="800"  data-aos-delay="200" className={this.state.avatars[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile(2) } /></div>
-          <div data-aos-duration="800"  data-aos-delay="300" className={this.state.avatars[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile(3) } /></div>
+          <div data-aos-duration="800"  className={this.state.avatars[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile(0) } /></div>
+          <div  data-aos-duration="800"  data-aos-delay="100" className={this.state.avatars[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile(3) } /></div>
+          <div  data-aos-duration="800"  data-aos-delay="200" className={this.state.avatars[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile(1) } /></div>
+          <div data-aos-duration="800"  data-aos-delay="300" className={this.state.avatars[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile(2) } /></div>
         </section>
 
 
@@ -100,13 +100,13 @@ class MakeProfile extends Component {
 
         <div className="header">Choose your avatar</div>
           <section className="instructions">
-            <div data-aos-duration="800"  className={this.state.avatar2[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile2(1) } /></div>
-            <div  data-aos-duration="800"  data-aos-delay="100" className={this.state.avatar2[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile2(4) } /></div>
-            <div  data-aos-duration="800"  data-aos-delay="200" className={this.state.avatar2[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile2(2) } /></div>
-            <div data-aos-duration="800"  data-aos-delay="300" className={this.state.avatar2[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile2(3) } /></div>
+            <div data-aos-duration="800"  className={this.state.avatar2[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile2(0) } /></div>
+            <div  data-aos-duration="800"  data-aos-delay="100" className={this.state.avatar2[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile2(3) } /></div>
+            <div  data-aos-duration="800"  data-aos-delay="200" className={this.state.avatar2[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile2(1) } /></div>
+            <div data-aos-duration="800"  data-aos-delay="300" className={this.state.avatar2[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile2(2) } /></div>
           </section>
 
-       <Link to="/high-low"><button className="get-started" onClick={() => this.props.makeAvatar(this.state.profileSelected, this.state.player1Name, this.state.player2Name, this.state.profileSelected2)}>Next</button></Link>
+       <Link to="/high-low"><button className="get-started" onClick={() => this.props.makeAvatar(this.state.profileSelected,  this.state.profileSelected2, this.state.player1Name, this.state.player2Name)}>Next</button></Link>
       </div>
     );
   }
