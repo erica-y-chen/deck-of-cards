@@ -1,8 +1,18 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 import axios from 'axios';
-import CardDeck from '../components/CardDeck.js'
-import {Clover, Diamond, Spades, Hearts} from '../components/CardDeckModern'
 import ChangePlayerModal from "../components/ChangePlayerModal.js";
+import './onboarding.css'
+import './game.css'
+
+//AOS Library
+import AOS from 'aos'
+import 'aos/dist/aos.css';
+
+//images 
+import Logo from '../images/high-low-logo.svg'
+import {Clover, Diamond, Spades, Hearts} from '../components/CardDeckModern'
+import profile1 from '../images/profiles/boy.svg'
 
 class HiLowGame extends Component {
   state = {
@@ -211,22 +221,27 @@ class HiLowGame extends Component {
   }
 
   render () {
+    AOS.init();
+    
     return (
-      <div className="App">
-        {/* <header className="App-header">
-          Get cards: 
-          {this.state.deckID}
-        </header> */}
-
-
-        <img src={Clover[1]} />
-
+      <div>
         <ChangePlayerModal show={this.state.showModal} triggerModal = {this.triggerModal}/>
+        <div className="onboarding-header">
+            <div className = "high-low-logo">
+                <img className="logo" src ={Logo} />
+                <div className="game-title">high/low</div>
+            </div>
+        </div>
+
+        <div className ="game-info">
+          <div className="player-info">
+            <div className="player">{this.state.Player1 ? <><img src={profile1} className="game-avatar" />Player 1 </> : <div>Player 2</div>}</div>
+            <div className="player-points">Points: {this.state.player1Pts}</div>
+          </div>
+          <div>Remaining Cards: {this.state.remaining}</div>
+            <div>Player 2 points: {this.state.player2Pts}</div>
+        </div>
         <body>
-          <div >Remaining Cards: {this.state.remaining}</div>
-          {this.state.Player1 ? <div>Player 1</div> : <div>Player 2</div>}
-          <div>Player 1 points: {this.state.player1Pts}</div>
-          <div>Player 2 points: {this.state.player2Pts}</div>
           drawn card: <img src={this.state.drawnCard.image} />
           
           Guess: 
