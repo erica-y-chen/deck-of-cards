@@ -129,7 +129,7 @@ class HiLowGame extends Component {
                     nextCardHigher: false
                   }) 
                 
-                  this.checkGuess();
+                  // this.checkGuess();
               })
             .catch(err => {
                 console.log(err);
@@ -323,7 +323,7 @@ class HiLowGame extends Component {
                 {this.state.canPass ? <button className ="pass-button" onClick={this.passPlayer}>Pass Turn</button> : null} 
               </div>
               <div className="cards"> 
-                {this.state.card.map(card => <>
+                {this.state.card.reverse().map(card => <>
                   {this.state.modern && this.state.card ? <img className = {this.state.modern ? "card-deck-modern" : "card-deck"} src={modernDeck[card.suit][card.value]} />
                   : <img className = "card-deck" src={card.image} /> }
                   
@@ -332,7 +332,7 @@ class HiLowGame extends Component {
               </div> 
             </div>
             
-
+ 
 
         </body>
       </div>
