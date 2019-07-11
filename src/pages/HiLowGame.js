@@ -13,6 +13,7 @@ import 'aos/dist/aos.css';
 import Logo from '../images/high-low-logo.svg'
 import {Clover, Diamond, Spades, Hearts} from '../components/CardDeckModern'
 import profile1 from '../images/profiles/boy.svg'
+import profile2 from '../images/profiles/girl.svg'
 
 class HiLowGame extends Component {
   state = {
@@ -154,18 +155,15 @@ class HiLowGame extends Component {
           if(this.state.correct < 2) {
             this.setState({
               correct: this.state.correct + 1,
-              message: "you're correct",
             })
           } else if (this.state.correct === 2) {
             this.setState({
               correct: this.state.correct + 1,
-              message: "you're correct",
               canPass: true
             })
           }
       }else ( this.state.Player1 ? 
       this.setState({ 
-        message: "you're wrong",
         player1Pts: this.state.player1Pts + this.state.card.length-1,
         drawnCard: [],
         card: [],
@@ -175,7 +173,6 @@ class HiLowGame extends Component {
       }) :       
       
       this.setState({ 
-        message: "you're wrong",
         player2Pts: this.state.player2Pts + this.state.card.length-1,
         drawnCard: [],
         card: [],
@@ -234,19 +231,25 @@ class HiLowGame extends Component {
         </div>
 
         <div className ="game-info">
-          <div className="player-info">
-            <div className="player">{this.state.Player1 ? <><img src={profile1} className="game-avatar" />Player 1 </> : <div>Player 2</div>}</div>
+          <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
+            <div className="player"><img src={profile1} className="game-avatar" />Player 1</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
-          <div>Remaining Cards: {this.state.remaining}</div>
-            <div>Player 2 points: {this.state.player2Pts}</div>
+
+          <div className="remaining-cards">
+            Remaining Cards: 
+            <div className="remaining-cards-num">{this.state.remaining}</div>
+          </div>
+
+          <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
+            <div className="player"><img src={profile2} className="game-avatar" />Player 2</div>
+            <div className="player-points">Points: {this.state.player2Pts}</div>
+          </div>
+
         </div>
-        <body>
+
+        <body className="game-content">
           drawn card: <img src={this.state.drawnCard.image} />
-          
-          Guess: 
-          <button onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</button>
-          <button onClick={this.toggleFalse} className = {this.state.playerGuess===false? "selected" : "unselected"}>Low</button> 
           
           
           
@@ -258,10 +261,17 @@ class HiLowGame extends Component {
               <><img className = "card" src={card.image} />
               </>
             )} 
-            {this.state.message}</div> 
+          </div> 
             <div>Correct: {this.state.correct}</div>
             {this.state.canPass ? <button onClick={this.passPlayer}>Pass</button> : null}
         </body>
+        <div className = "guess-modal">
+            <div className="guess-header">Guess: </div>
+            <div className="high-low">
+              <div onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</div>
+              <div onClick={this.toggleFalse} className = {this.state.playerGuess===false? "selected" : "unselected"}>Low</div> 
+            </div>
+          </div>
       </div>
     );
   }
