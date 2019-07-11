@@ -20,16 +20,25 @@ import points from '../images/hand.svg'
 import Profile from '../components/Profile'
 
 class MakeProfile extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      avatars: [false, false, false, false],
+    }
+  
+  }
  
-  state = {
-    selected1: false,
-    selected2: false,
-    selected3: false,
-    selected4: false,
+  selectProfile = (key) => {
+    console.log("selected this one" + key)
+    const selectedAvatar = this.state.avatars;
+    selectedAvatar[key-1] = !selectedAvatar[key-1];
+    this.setState ({ 
+      avatars: selectedAvatar,
+    })
   }
 
-  selectProfile = (index) => {
-    console.log("selected this one" + index)
+  saveAvatar = () => {
+    
   }
 
   render () {
@@ -48,15 +57,15 @@ class MakeProfile extends Component {
 
         <div className="header">Player 1: Choose your avatar</div>
         <section className="instructions">
-            <div className={this.state.selected1 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.setState({ selected1: !this.state.selected1, selected2: false, selected3: false, selected4: false })} /></div>
-            <div className={this.state.selected3 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.setState({ selected3: !this.state.selected3, selected1: false, selected2: false, selected4: false })} /></div>
-            <div className={this.state.selected2 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.setState({ selected2: !this.state.selected2, selected1: false, selected3: false, selected4: false })} /></div>
-            <div className={this.state.selected4 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.setState({ selected4: !this.state.selected2, selected1: false, selected3: false, selected2: false })} /></div>
+          <div className={this.state.avatars[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile(1) } /></div>
+          <div className={this.state.selected3 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile(4) } /></div>
+          <div className={this.state.selected3 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile(2) } /></div>
+          <div className={this.state.selected3 ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile(3) } /></div>
         </section>
 
       
 
-        <Link to="/high-low"><button className="get-started" onClick={this.saveAvatar}>Next</button></Link>
+       <button className="get-started" onClick={this.props.makeAvatar}>Next</button>
       </div>
     );
   }

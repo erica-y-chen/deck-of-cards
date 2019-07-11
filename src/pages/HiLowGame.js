@@ -131,18 +131,16 @@ class HiLowGame extends Component {
               })
               console.log(res.data.cards[0].value)
               
-              console.log(this.state.card[this.state.card.length-1].value)
-
-              res.data.cards[0].value > this.state.card[this.state.card.length-1].value ? 
-                this.setState ({
-                  nextCardHigher: true
-                }) 
-                : 
-                this.setState ({
-                  nextCardHigher: false
-                }) 
+              // res.data.cards[0].value > this.state.card[this.state.card.length-1].value ? 
+              //   this.setState ({
+              //     nextCardHigher: true
+              //   }) 
+              //   : 
+              //   this.setState ({
+              //     nextCardHigher: false
+              //   }) 
               
-                this.checkGuess();
+              //   this.checkGuess();
             })
           .catch(err => {
               console.log(err);
@@ -165,18 +163,12 @@ class HiLowGame extends Component {
       }else ( this.state.Player1 ? 
       this.setState({ 
         player1Pts: this.state.player1Pts + this.state.card.length-1,
-        drawnCard: [],
-        card: [],
-        correct: 0, 
         Player1: !this.state.Player1, 
         showModal: true,
       }) :       
       
       this.setState({ 
         player2Pts: this.state.player2Pts + this.state.card.length-1,
-        drawnCard: [],
-        card: [],
-        correct: 0, 
         Player1: !this.state.Player1, 
         showModal: true,
       })
@@ -213,6 +205,9 @@ class HiLowGame extends Component {
   triggerModal = () => {
     this.setState({
       showModal: !this.state.showModal,
+      drawnCard: [],
+      card: [],
+      correct: 0, 
     })
     this.drawingCards();
   }
@@ -223,6 +218,7 @@ class HiLowGame extends Component {
     return (
       <div>
         <ChangePlayerModal show={this.state.showModal} triggerModal = {this.triggerModal}/>
+
         <div className="onboarding-header">
             <div className = "high-low-logo">
                 <img className="logo" src ={Logo} />
@@ -249,29 +245,32 @@ class HiLowGame extends Component {
         </div>
 
         <body className="game-content">
-          drawn card: <img src={this.state.drawnCard.image} />
-          
-          
-          
-          {this.state.playerGuess !== null ? <button onClick = {this.drawCard}>draw card</button> : null}
-          <img className="card-back" src={Clover[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
-          <img className="card" src={this.state.drawnCard.image} />
-          <div className="cards"> 
-            {this.state.card.map(card =>
-              <><img className = "card" src={card.image} />
-              </>
-            )} 
-          </div> 
-            <div>Correct: {this.state.correct}</div>
+
+          <div className="card-deck">
+            {this.state.playerGuess !== null ? <button onClick = {this.drawCard}>draw card</button> : null}
+            <img className="card-back" src={Clover[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
+            <img className="card" src={this.state.drawnCard.image} />
+          </div>
             {this.state.canPass ? <button onClick={this.passPlayer}>Pass</button> : null}
-        </body>
-        <div className = "guess-modal">
+          
+            <div className = "guess-modal">
             <div className="guess-header">Guess: </div>
             <div className="high-low">
               <div onClick={this.toggleTrue} className = {this.state.playerGuess ? "selected" : "unselected"} >High</div>
               <div onClick={this.toggleFalse} className = {this.state.playerGuess===false? "selected" : "unselected"}>Low</div> 
             </div>
           </div>
+
+          <div className="cards"> 
+          <div>Correct: {this.state.correct}</div>
+            {this.state.card.map(card =>
+              <><img className = "card-in-deck" src={card.image} />
+              </>
+            )} 
+          </div> 
+
+
+        </body>
       </div>
     );
   }
