@@ -202,6 +202,10 @@
       cursor:pointer;
   }
 
+  .draw-card:focus {
+      outline-width: 0px
+  }
+
   .draw-card:hover{
         top: 24%;
   }

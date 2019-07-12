@@ -24,7 +24,7 @@ class HiLowGame extends Component {
       playerGuess: null, 
       correct: 0,
       modern: false,
-      player1Pts: 0,
+      player1Pts: 10,
       player2Pts: 0,
       remaining: 52,
       Player1: true,
@@ -46,14 +46,15 @@ class HiLowGame extends Component {
         .then(res => {
 
             //checking for special values
-            if(res.data.cards[0].value === "ACE") {
-              res.data.cards[0].value = 1; 
-            } else if (res.data.cards[0].value === "QUEEN") {
-              res.data.cards[0].value = 12;
-            } else if (res.data.cards[0].value === "KING") {
-              res.data.cards[0].value = 13;
-            } else if (res.data.cards[0].value === "JACK") {
-              res.data.cards[0].value = 11;
+            let fetchedCard = res.data.cards[0].value;
+            if(fetchedCard === "ACE") {
+              fetchedCard = 1; 
+            } else if (fetchedCard === "QUEEN") {
+              fetchedCard = 12;
+            } else if (fetchedCard === "KING") {
+              fetchedCard = 13;
+            } else if (fetchedCard === "JACK") {
+             fetchedCard = 11;
             }
 
             this.setState ({
@@ -69,23 +70,22 @@ class HiLowGame extends Component {
       });
   }
 
-  
+
   //allows the user to draw a new card from the deck
   drawCard = () => {
     let deck=this.state.cards;
     deck.push(this.state.drawnCard)
     this.setState ({
-      remaining: this.state.remaining-1, 
+      remaining: this.state.remaining - 1, 
       cards: deck,
     })
 
-    if (this.state.remaining > 0) {
+    if (this.state.remaining) {
       axios
             .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
             .then(res => {
-
-                let drawnCardVal = this.ConvertInt(res.data.cards[0].value)
-                let cardDrawnBeforeVal = this.ConvertInt(deck[deck.length-1].value)
+                let drawnCardVal = this.cardValToInt(res.data.cards[0].value)
+                let cardDrawnBeforeVal = this.cardValToInt(deck[deck.length-1].value)
 
                 this.setState ({
                   drawnCard: res.data.cards[0],
@@ -104,7 +104,7 @@ class HiLowGame extends Component {
   }
 
   //convert all card values from strings to integers
-  ConvertInt = (number) => { 
+  cardValToInt = (number) => { 
     if(number === "ACE") {
       number = 1; 
     } else if (number === "QUEEN") {
@@ -122,21 +122,23 @@ class HiLowGame extends Component {
   //draws the very first deck in the beginning of the game and when the players switch and a new person is playing 
   drawingFirstCard = () => { 
     this.setState({
-      remaining: this.state.remaining-1, 
+      remaining: this.state.remaining - 1, 
     })
     axios
           .get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1` )
           .then(res => {
               
               //checking for special values
-              if(res.data.cards[0].value === "ACE") {
-                res.data.cards[0].value = 1; 
-              } else if (res.data.cards[0].value === "QUEEN") {
-                res.data.cards[0].value = 12;
-              } else if (res.data.cards[0].value === "KING") {
-                res.data.cards[0].value = 13;
-              } else if (res.data.cards[0].value === "JACK") {
-                res.data.cards[0].value = 11;
+              let firstCardVal = res.data.cards[0].value;
+
+              if(firstCardVal === "ACE") {
+                firstCardVal = 1; 
+              } else if (firstCardVal === "QUEEN") {
+                firstCardVal = 12;
+              } else if (firstCardVal === "KING") {
+                firstCardVal = 13;
+              } else if (firstCardVal === "JACK") {
+                firstCardVal = 11;
               }
 
               this.setState ({
@@ -151,24 +153,23 @@ class HiLowGame extends Component {
 
   //checks to see if the user guess is right 
   checkGuess = (drawnCardVal, cardDrawnBeforeVal) => { 
-
-    const guess = this.state.playerGuess; 
-    const comparison = drawnCardVal === cardDrawnBeforeVal ? guess : drawnCardVal > cardDrawnBeforeVal //checks to see if the user guess is right 
+    const { player1Pts, playerGuess, cards, correct, Player1, player2Pts } = this.state;
+    const comparison = drawnCardVal === cardDrawnBeforeVal ? playerGuess : drawnCardVal > cardDrawnBeforeVal //checks to see if the user guess is right 
 
     //compares user guess with the actual result if true, adds a card to the user's deck, if false, it triggers a player switch
-    if(comparison === guess ) {
+    if(comparison === playerGuess ) {
       this.setState({
-        correct: this.state.correct + 1
+        correct: correct + 1
       })
-    } else (this.state.Player1 ? 
+    } else (Player1 ? 
       this.setState({
-        player1Pts: this.state.player1Pts + this.state.cards.length,
-        Player1: !this.state.Player1,
+        player1Pts: player1Pts + cards.length,
+        Player1: !Player1,
         showModal: true,
       }):       
       this.setState({ 
-        player2Pts: this.state.player2Pts + this.state.cards.length,
-         Player1: !this.state.Player1, 
+        player2Pts: player2Pts + cards.length,
+         Player1: !Player1, 
          showModal: true,
       })
       )
@@ -190,7 +191,6 @@ class HiLowGame extends Component {
 
   //handling when the player chooses to pass his turn to the next player after 3 consecutive correct guesses
   passPlayer = () => {
-    console.log('passing')
     this.setState({
       Passing: true,
       Player1: !this.state.Player1, 
@@ -227,7 +227,7 @@ class HiLowGame extends Component {
     return (
       <div>
         <ChangePlayerModal passing = {this.state.Passing} correct = {this.state.correct} show={this.state.showModal} triggerModal = {this.triggerModal}/>
-        <EndGameModal show={this.state.endGame} player1={this.props.player1} player2={this.props.player2} player1Pts={this.state.player1Pts} player2Pts={this.state.player2Pts}/>
+        {this.state.remaining === 0 ? <EndGameModal show={true} player1={this.props.player1} player2={this.props.player2} player1Pts={this.state.player1Pts} player2Pts={this.state.player2Pts}/> : null }
 
         <div className="onboarding-header">
             <div className = "high-low-logo">
@@ -240,6 +240,7 @@ class HiLowGame extends Component {
             </div>
         </div>
 
+        {/* provides general information for the team--> player info, points, and remaining cards in the game to draw */}
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
             <div className="player"><img src={this.props.player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {this.props.player1.name}</div>
@@ -259,6 +260,8 @@ class HiLowGame extends Component {
         </div>
 
         <div className="game-content">
+          
+          {/* displays the deck of cards and the module for players to make a guess */}
           <div className="left-content">
 
             <div className = "guess-modal">
@@ -268,7 +271,7 @@ class HiLowGame extends Component {
                 <div onClick={this.guessLow} className = {this.state.playerGuess===false ? "selected" : "unselected"}>Low</div> 
               </div>
             </div>
-
+  
             <div className="card-deck">
               <div className="drawn-cards">
                 <div className="draw-card-button">
@@ -276,12 +279,13 @@ class HiLowGame extends Component {
                   <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
                 </div>
                 {drawnCard && 
-                  <img className="card" alt = {"playing card: " + drawnCard.suit + drawnCard.value} src={this.state.modern ? modernDeck[drawnCard.suit][this.ConvertInt(drawnCard.value)] : drawnCard.image} />
+                  <img className="card" alt = {"playing card: " + drawnCard.suit + drawnCard.value} src={this.state.modern ? modernDeck[drawnCard.suit][this.cardValToInt(drawnCard.value)] : drawnCard.image} />
                 }
+                </div>
               </div>
-          </div>
-        </div>
+            </div>
             
+            {/* displays the number of correct guesses for this turn and all of the drawn cards for the turn */}
             <div className="drawn-cards-display">
               <div className="drawn-cards-header">
                 <div className = "num-correct">Correct: {this.state.correct}</div>
@@ -290,7 +294,7 @@ class HiLowGame extends Component {
               <div className="cards"> 
                 {this.state.cards.map(card => {
                   return (<>
-                  {this.state.modern && this.state.cards ? <img className = {this.state.modern ? "card-deck-modern" : "card-deck"} alt = {"playing card: " + card.suit + card.value} src={modernDeck[card.suit][this.ConvertInt(card.value)]} />
+                  {this.state.modern && this.state.cards ? <img className = {this.state.modern ? "card-deck-modern" : "card-deck"} alt = {"playing card: " + card.suit + card.value} src={modernDeck[card.suit][this.cardValToInt(card.value)]} />
                   : <img className = "card-deck" src={card.image} alt = "playing card"/> }
                   </>)
                 }

@@ -6,11 +6,13 @@ import './css/changePlayerModal.css'
 class EndGameModal extends Component {
 
     render() {
-        let player1Wins = this.props.player1Pts < this.props.player2Pts
+        const { player1Pts, player2Pts, player1, player2 } = this.props;
+        let player1Wins = player1Pts < player2Pts;
+
         return ( 
          this.props.show ? <Link to = "/profile"><div className = "modal">
-             <img className="hand-of-cards" src={player1Wins ? this.props.player1.avatar : this.props.player2.avatar} alt= "winning player avatar"/> 
-            <div className="winner-header">Congratulations {player1Wins ? this.props.player1.name : this.props.player2.name}!</div>
+             <img className="hand-of-cards" src={player1Wins ? player1.avatar : player2.avatar} alt= "winning player avatar"/> 
+            <div className="winner-header">Congratulations {player1Wins ? player1.name : player2.name}!</div>
             You won!
             <br />Click here to play again</div></Link> : null 
         )

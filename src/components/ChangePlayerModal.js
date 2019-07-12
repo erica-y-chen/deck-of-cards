@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import './css/changePlayerModal.css'
 import cards from '../images/hand.svg'
 
-// this is the container for ALL of '/dashboard'
+// component for a modal that appears when players switch turns
 class ChangePlayerModal extends Component {
-
-
 
     render() {
         return ( 
@@ -13,7 +11,7 @@ class ChangePlayerModal extends Component {
              <img className="hand-of-cards" src={cards} alt="hand holding cards"/> 
             
             {/* if this is triggered by a player passing on his/her turn, it will display turn passed, otherwise it's triggered when there's an incorrect guess then it'll say you're wrong */}
-             {this.props.correct >= 3 && this.props.passing ? "Turn passed" : "You're wrong!" } <br />Next player, click anywhere to begin your turn</div> : null 
+             {this.props.correct >= 3 && this.props.passing ? "Turn passed" : "You're wrong!" } <br />Next player, click here to begin your turn</div> : null 
         )
   }
 }

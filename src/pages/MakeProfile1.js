@@ -73,16 +73,20 @@ class MakeProfile extends Component {
 
         <div className="header">Choose your avatar</div>
         <section className="instructions">
+          
+          {/* TODO: Make this a component */}
+
+
+
+
+          
           <div className={this.state.avatars[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile(0)} alt = "avatar of a person with dark hair"/></div>
           <div className={this.state.avatars[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile(3) } alt = "avatar of a person with red hair"/></div>
           <div className={this.state.avatars[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile(1) } alt = "avatar of a person with grey hair"/></div>
           <div className={this.state.avatars[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile(2) } alt = "avatar of a person with long brown hair"/></div>
         </section>
 
-
-
         <div className = "linebr" />
-
 
         <div className="header">Player 2: Name </div>
         <div className="name-input-container">
