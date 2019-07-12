@@ -11,9 +11,9 @@ class ChangePlayerModal extends Component {
 
     render() {
         return ( 
-         this.props.show ? <div className = "modal" onClick = {this.props.triggerModal}>
+         this.props.show ? <div className="modal-background"><div className = "modal" onClick = {this.props.triggerModal}>
              <img className="hand-of-cards" src={cards} /> 
-             You're wrong! <br />Next player, click anywhere to begin your turn</div> : null 
+             {this.props.correct >= 3 && this.props.passing ? "Turn passed" : "You're wrong!" } <br />Next player, click anywhere to begin your turn</div></div> : null 
         )
   }
 }

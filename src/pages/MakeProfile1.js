@@ -67,7 +67,10 @@ class MakeProfile extends Component {
                 <img className="logo" src ={Logo} />
                 <div className="game-title">high/low</div>
             </div>
-            <Link to="/"><button className="get-started-header">Instructions</button></Link>
+
+            <div className = "header-buttons">
+              <Link to="/"><div className= "how-to-play">How to Play</div></Link>
+            </div>
 
         </div>
 
