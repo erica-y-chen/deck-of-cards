@@ -22,7 +22,6 @@ class App extends Component {
   }
 
   player1Avatar = (key, key2, name, name2) => { 
-    console.log('hello' + key + key2 + name2 +name)
     let playerOne = this.state.player1;
     let playerTwo = this.state.player2;
     playerOne.avatar = this.state.avatars[key];
@@ -45,8 +44,6 @@ class App extends Component {
         <Route path="/high-low" render={(routeProps) => (<Game {...routeProps} player1= {this.state.player1} player2= {this.state.player2} />  )} />
 
         
-    
-        <div className="footer">Icons made by Freepik from www.flaticon.com is licensed by CC 3.0 BY</div>
       </div>
     )
   }

@@ -13,8 +13,6 @@ import 'aos/dist/aos.css';
 //images 
 import Logo from '../images/high-low-logo.svg'
 import {modernDeck} from '../components/CardDeckModern'
-import profile1 from '../images/profiles/boy.svg'
-import profile2 from '../images/profiles/girl.svg'
 
 class HiLowGame extends Component {
   constructor(props) {
@@ -30,14 +28,13 @@ class HiLowGame extends Component {
       player2Pts: 0,
       remaining: 52,
       Player1: true,
-      showModal: true,
+      showModal: false,
       endGame: false,
       Passing: false,
     };
   }
 
   componentDidMount() {
-    let ID = ""
       axios
       .get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
       .then(res => {
@@ -62,7 +59,6 @@ class HiLowGame extends Component {
             this.setState ({
               drawnCard: res.data.cards[0],
             })
-            console.log(res.data.cards[0])
           })
         .catch(err => {
             console.log(err);
@@ -74,7 +70,6 @@ class HiLowGame extends Component {
   }
 
   drawCard = () => {
-    console.log(this.state.cards)
     let deck=this.state.cards;
     deck.push(this.state.drawnCard)
     this.setState ({
@@ -145,7 +140,6 @@ class HiLowGame extends Component {
               this.setState ({
                 drawnCard: res.data.cards[0],
               })
-              console.log(res.data.cards[0].value)
 
             })
           .catch(err => {
@@ -154,8 +148,6 @@ class HiLowGame extends Component {
   }
 
   checkGuess = (drawnCardVal, cardDrawnBeforeVal) => { //checks to see if the user guess is right 
-    console.log(this.state.drawnCard)
-    console.log(this.state.playerGuess)
 
     const guess = this.state.playerGuess; 
     const comparison = drawnCardVal === cardDrawnBeforeVal ? guess : drawnCardVal > cardDrawnBeforeVal //returns true of new card is larger, false if it's smaller 
@@ -222,14 +214,13 @@ class HiLowGame extends Component {
     this.setState({
       endGame: false,
     })
-    window.location.reload();
   }
 
   render () {
     const { drawnCard } = this.state;
 
     AOS.init();
-    console.log(this.state);
+
     return (
       <div>
         <ChangePlayerModal passing = {this.state.Passing} correct = {this.state.correct} show={this.state.showModal} triggerModal = {this.triggerModal}/>
@@ -237,7 +228,7 @@ class HiLowGame extends Component {
 
         <div className="onboarding-header">
             <div className = "high-low-logo">
-                <img className="logo" src ={Logo} />
+                <img className="logo" src ={Logo} alt = "high-low game logo"/>
                 <div className="game-title">high/low</div>
             </div>
             <div className = "header-buttons">
@@ -248,7 +239,7 @@ class HiLowGame extends Component {
 
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={this.props.player1.avatar} className="game-avatar" />Player 1: {this.props.player1.name}</div>
+            <div className="player"><img src={this.props.player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {this.props.player1.name}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
 
@@ -258,13 +249,13 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={this.props.player2.avatar} className="game-avatar" />Player 2: {this.props.player2.name}</div>
+            <div className="player"><img src={this.props.player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {this.props.player2.name}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 
         </div>
 
-        <body className="game-content">
+        <div className="game-content">
           <div className="left-content">
 
             <div className = "guess-modal">
@@ -279,10 +270,10 @@ class HiLowGame extends Component {
               <div className="drawn-cards">
                 <div className="draw-card-button">
                   {this.state.playerGuess !== null ? <button className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
-                  <img className="card-back" src={modernDeck.CLUBS[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
+                  <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
                 </div>
                 {drawnCard && 
-                  <img className="card" src={this.state.modern ? modernDeck[drawnCard.suit][this.ConvertInt(drawnCard.value)] : drawnCard.image} />
+                  <img className="card" alt = {"playing card: " + drawnCard.suit + drawnCard.value} src={this.state.modern ? modernDeck[drawnCard.suit][this.ConvertInt(drawnCard.value)] : drawnCard.image} />
                 }
               </div>
           </div>
@@ -295,10 +286,9 @@ class HiLowGame extends Component {
               </div>
               <div className="cards"> 
                 {this.state.cards.map(card => {
-                  console.log(modernDeck[card.suit][this.ConvertInt(card.value)])
                   return (<>
-                  {this.state.modern && this.state.cards ? <img className = {this.state.modern ? "card-deck-modern" : "card-deck"} src={modernDeck[card.suit][this.ConvertInt(card.value)]} />
-                  : <img className = "card-deck" src={card.image} /> }
+                  {this.state.modern && this.state.cards ? <img className = {this.state.modern ? "card-deck-modern" : "card-deck"} alt = {"playing card: " + card.suit + card.value} src={modernDeck[card.suit][this.ConvertInt(card.value)]} />
+                  : <img className = "card-deck" src={card.image} alt = "playing card"/> }
                   </>)
                 }
                 )}
@@ -307,7 +297,7 @@ class HiLowGame extends Component {
             
  
 
-        </body>
+        </div>
       </div>
     );
   }

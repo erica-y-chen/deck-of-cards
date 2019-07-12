@@ -21,8 +21,8 @@
 }
 
 .footer {
-  position: sticky;
-  bottom: -50px;
+  position: absolute;
+  right: 60px;
   font-size: 10px;
   color: grey;
   margin: 0 auto;
