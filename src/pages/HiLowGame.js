@@ -29,7 +29,6 @@ class HiLowGame extends Component {
       remaining: 52,
       Player1: true,
       showModal: false,
-      endGame: false,
       Passing: false,
     };
   }
@@ -96,11 +95,7 @@ class HiLowGame extends Component {
             .catch(err => {
                 console.log(err);
             }) 
-      } else {
-        this.setState ({
-          endGame: true,
-        })
-      }
+      } 
   }
 
   //convert all card values from strings to integers
@@ -227,7 +222,9 @@ class HiLowGame extends Component {
     return (
       <div>
         <ChangePlayerModal passing = {this.state.Passing} correct = {this.state.correct} show={this.state.showModal} triggerModal = {this.triggerModal}/>
-        {this.state.remaining === 0 ? <EndGameModal show={true} player1={this.props.player1} player2={this.props.player2} player1Pts={this.state.player1Pts} player2Pts={this.state.player2Pts}/> : null }
+
+        {/* does a check to pop the end game modal up when there are no cards remaining */}
+        {this.state.remaining === 0 ? <EndGameModal player1={this.props.player1} player2={this.props.player2} player1Pts={this.state.player1Pts} player2Pts={this.state.player2Pts}/> : null }
 
         <div className="onboarding-header">
             <div className = "high-low-logo">

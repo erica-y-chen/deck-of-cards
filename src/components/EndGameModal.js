@@ -10,11 +10,11 @@ class EndGameModal extends Component {
         let player1Wins = player1Pts < player2Pts;
 
         return ( 
-         this.props.show ? <Link to = "/profile"><div className = "modal">
+         <Link to = "/profile"><div className = "modal">
              <img className="hand-of-cards" src={player1Wins ? player1.avatar : player2.avatar} alt= "winning player avatar"/> 
             <div className="winner-header">Congratulations {player1Wins ? player1.name : player2.name}!</div>
             You won!
-            <br />Click here to play again</div></Link> : null 
+            <br />Click here to play again</div></Link> 
         )
   }
 }
