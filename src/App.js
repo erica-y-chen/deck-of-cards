@@ -21,6 +21,7 @@ class App extends Component {
     avatars: [profile1, profile2, profile3, profile4],
   }
 
+  //function that takes in the user information set in the profile page
   player1Avatar = (key, key2, name, name2) => { 
     let playerOne = this.state.player1;
     let playerTwo = this.state.player2;
@@ -42,8 +43,6 @@ class App extends Component {
         <Route exact path="/" component = {Onboarding} />
         <Route path = "/profile" render={(routeProps) => ( <MakeProfile {...routeProps} makeAvatar= {this.player1Avatar} />  )} />
         <Route path="/high-low" render={(routeProps) => (<Game {...routeProps} player1= {this.state.player1} player2= {this.state.player2} />  )} />
-
-        
       </div>
     )
   }

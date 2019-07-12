@@ -61,10 +61,8 @@ import hearts12 from '../images/card_deck_modern/2x/heart-12.png'
 import hearts13 from '../images/card_deck_modern/2x/heart-13.png'
 
 
+//component that is importing all of the pngs for the modern playing card design pack
 
-
-
-// this is the container for ALL of '/dashboard'
 let modernDeck = {
 CLUBS: [cardBack, clover1, clover2, clover3, clover4, clover5, clover6, clover7, clover8, clover9, clover10, clover11, clover12, clover13],
 DIAMONDS: [cardBack, diamond1, diamond2, diamond3, diamond4, diamond5, diamond6, diamond7, diamond8, diamond9, diamond10, diamond11, diamond12, diamond13],

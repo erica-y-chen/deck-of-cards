@@ -69,6 +69,8 @@ class HiLowGame extends Component {
       });
   }
 
+  
+  //allows the user to draw a new card from the deck
   drawCard = () => {
     let deck=this.state.cards;
     deck.push(this.state.drawnCard)
@@ -101,8 +103,8 @@ class HiLowGame extends Component {
       }
   }
 
-
-  ConvertInt = (number) => { //convert all card values from strings to integers
+  //convert all card values from strings to integers
+  ConvertInt = (number) => { 
     if(number === "ACE") {
       number = 1; 
     } else if (number === "QUEEN") {
@@ -117,8 +119,8 @@ class HiLowGame extends Component {
     return number;
   }
 
-
-  drawingCards = () => {
+  //draws the very first deck in the beginning of the game and when the players switch and a new person is playing 
+  drawingFirstCard = () => { 
     this.setState({
       remaining: this.state.remaining-1, 
     })
@@ -147,12 +149,14 @@ class HiLowGame extends Component {
           }) 
   }
 
-  checkGuess = (drawnCardVal, cardDrawnBeforeVal) => { //checks to see if the user guess is right 
+  //checks to see if the user guess is right 
+  checkGuess = (drawnCardVal, cardDrawnBeforeVal) => { 
 
     const guess = this.state.playerGuess; 
-    const comparison = drawnCardVal === cardDrawnBeforeVal ? guess : drawnCardVal > cardDrawnBeforeVal //returns true of new card is larger, false if it's smaller 
+    const comparison = drawnCardVal === cardDrawnBeforeVal ? guess : drawnCardVal > cardDrawnBeforeVal //checks to see if the user guess is right 
 
-    if(comparison === guess ) { //compares user guess with the actual result if true, adds a card to the user's deck, if false, it triggers a player switch
+    //compares user guess with the actual result if true, adds a card to the user's deck, if false, it triggers a player switch
+    if(comparison === guess ) {
       this.setState({
         correct: this.state.correct + 1
       })
@@ -170,19 +174,21 @@ class HiLowGame extends Component {
       )
   }
 
-
-  guessHigh = () => {
+  //sets state to true if user guesses the next card will be high
+  guessHigh = () => { 
     this.setState ({
       playerGuess: true,
     })
   }
 
-  guessLow = () => {
+  //sets the state to false if the user guesses the next card will be low
+  guessLow = () => { 
     this.setState ({
       playerGuess: false,
     })
   }
 
+  //handling when the player chooses to pass his turn to the next player after 3 consecutive correct guesses
   passPlayer = () => {
     console.log('passing')
     this.setState({
@@ -193,6 +199,7 @@ class HiLowGame extends Component {
     })
   }
 
+  //sets the modal to pop up when the turn goes over to the next player 
   triggerModal = () => {
     this.setState({
       showModal: !this.state.showModal,
@@ -201,20 +208,16 @@ class HiLowGame extends Component {
       correct: 0, 
       playerGuess: null,
     })
-    this.drawingCards();
+    this.drawingFirstCard();
   }
 
+  //toggles the style of cards between classic and modern
   toggleModern = () => {
     this.setState({
       modern: !this.state.modern,
     })
   }
 
-  resetGame = () => {
-    this.setState({
-      endGame: false,
-    })
-  }
 
   render () {
     const { drawnCard } = this.state;
@@ -224,7 +227,7 @@ class HiLowGame extends Component {
     return (
       <div>
         <ChangePlayerModal passing = {this.state.Passing} correct = {this.state.correct} show={this.state.showModal} triggerModal = {this.triggerModal}/>
-        <EndGameModal show={this.state.endGame} player1={this.props.player1} player2={this.props.player2} player1Pts={this.state.player1Pts} player2Pts={this.state.player2Pts} resetGame = {this.resetGame}/>
+        <EndGameModal show={this.state.endGame} player1={this.props.player1} player2={this.props.player2} player1Pts={this.state.player1Pts} player2Pts={this.state.player2Pts}/>
 
         <div className="onboarding-header">
             <div className = "high-low-logo">

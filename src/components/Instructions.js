@@ -6,6 +6,8 @@ import AOS from 'aos'
 import 'aos/dist/aos.css';
 
 AOS.init()
+
+//component that is a container of a single step instructino in the onboarding page
 const Instructions = props => (
 
     <div data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true" className="instruction-box">
