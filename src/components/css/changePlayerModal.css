@@ -1,17 +1,14 @@
 .modal {
-    position: absolute;
-    left: 35%;
-    top: 20%;
+    position: fixed;
     box-shadow: 0px 0px 0px 80px rgba(0, 0, 0, 0.3);
-    height: 400px;
-    width: 400px;
-    border-radius: 1000px;
+    top: -50px;
+    left:-50px;
+    height: 110%;
+    width: 110%;
     z-index: 10;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
 }
 
 .hand-of-cards{
@@ -24,4 +21,16 @@
 .winner-header {
     font-size: 24px;
     margin-bottom: 20px;
+}
+
+.modal-contents {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 30%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 100px;
+    padding-bottom: 80px;
+    margin-top: 15%;
 }

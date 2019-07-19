@@ -159,10 +159,16 @@
     width: 100px;
     padding: 5px;
     font-size: 14px;
-    color: rgb(252, 142, 160);
+    background-color: rgb(252, 142, 160);
+    color: white;
     border: 2px solid rgb(252, 142, 160);
     border-radius: 5px;
     cursor: pointer;
+}
+
+.pass-button:hover{
+    background-color: #FF6473;
+    border: 2px solid #FF6473;
 }
 
 .cards {
@@ -185,7 +191,6 @@
   
   
   .card-back {
-    cursor: pointer;
     height: 350px;
     margin-right: 20px;
     width: auto;

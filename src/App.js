@@ -29,6 +29,8 @@ class App extends Component {
     playerOne.name = name; 
     playerTwo.avatar = this.state.avatars[key2];
     playerTwo.name = name2;
+    localStorage.setItem('avatar1', JSON.stringify(this.state.avatars[key]))
+    localStorage.setItem('avatar2', JSON.stringify(this.state.avatars[key2]))
     
     this.setState({
       player1: playerOne,

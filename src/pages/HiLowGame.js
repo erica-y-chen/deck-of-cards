@@ -240,7 +240,7 @@ class HiLowGame extends Component {
         {/* provides general information for the team--> player info, points, and remaining cards in the game to draw */}
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={this.props.player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {this.props.player1.name}</div>
+            <div className="player"><img src={JSON.parse(localStorage.getItem('avatar1'))} className="game-avatar" alt="player 1 avatar"/>Player 1: {this.props.player1.name}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
 
@@ -250,7 +250,7 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={this.props.player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {this.props.player2.name}</div>
+            <div className="player"><img src={JSON.parse(localStorage.getItem('avatar2'))} className="game-avatar" alt = "player 2 avatar"/>Player 2: {this.props.player2.name}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 
@@ -273,7 +273,7 @@ class HiLowGame extends Component {
               <div className="drawn-cards">
                 <div className="draw-card-button">
                   {this.state.playerGuess !== null ? <button className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
-                  <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]} onClick={this.state.playerGuess !== null ? this.drawCard : null}/>
+                  <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]}/>
                 </div>
                 {drawnCard && 
                   <img className="card" alt = {"playing card: " + drawnCard.suit + drawnCard.value} src={this.state.modern ? modernDeck[drawnCard.suit][this.cardValToInt(drawnCard.value)] : drawnCard.image} />
