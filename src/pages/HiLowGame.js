@@ -18,6 +18,8 @@ class HiLowGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      player1: [],
+      player2: [],
       deckID: "",
       cards: [],
       drawnCard: null,
@@ -216,7 +218,8 @@ class HiLowGame extends Component {
 
   render () {
     const { drawnCard } = this.state;
-
+    const player1 = {name: localStorage.getItem('name1'), avatar: JSON.parse(localStorage.getItem('avatar1'))};
+    const player2 = {name: localStorage.getItem('name2'), avatar: JSON.parse(localStorage.getItem('avatar2'))};
     AOS.init();
 
     return (
@@ -240,7 +243,7 @@ class HiLowGame extends Component {
         {/* provides general information for the team--> player info, points, and remaining cards in the game to draw */}
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={JSON.parse(localStorage.getItem('avatar1'))} className="game-avatar" alt="player 1 avatar"/>Player 1: {this.props.player1.name}</div>
+            <div className="player"><img src={player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {player1.name.length>0 ? player1.name : null}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
 
@@ -250,7 +253,7 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={JSON.parse(localStorage.getItem('avatar2'))} className="game-avatar" alt = "player 2 avatar"/>Player 2: {this.props.player2.name}</div>
+            <div className="player"><img src={player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {player2.name.length>0 ? player2.name : null}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 
