@@ -54,15 +54,22 @@
 
 .selected {
     border: none;
+    border-radius: 50px;
     cursor: pointer;
+    border: 2px solid #FF6473;
+    padding: 10px;
+    width: 200px;
     font-size: 24px;
-    background-color: white;
-    color: #FF6473;
+    background-color: #FF6473;
+    color: white;
   }
   
 .unselected {
     background-color: none;
-    border: none;
+    border-radius: 50px;
+    border: 2px solid darkgrey;
+    padding: 10px;
+    width: 200px;
     cursor: pointer;
     font-size: 24px;
 }
@@ -90,6 +97,7 @@
     height: 80%;
     justify-content: space-around;
     padding-top: 20px;
+    margin-left: 40px;
 }
 
 .guess-header { 

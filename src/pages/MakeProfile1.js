@@ -69,15 +69,16 @@ class MakeProfile extends Component {
           className="player-name-input"
           value={this.state.player1Name}
           name = "player1Name"
-          onChange = {this.changeHandler} />
+          onChange = {this.changeHandler} 
+          placeholder = "name"/>
         </div>
 
         <div className="header">Choose your avatar</div>
         <section className="instructions">
-          <div className={this.state.avatars[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile(0)} alt = "avatar of a person with dark hair"/></div>
-          <div className={this.state.avatars[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile(3) } alt = "avatar of a person with red hair"/></div>
-          <div className={this.state.avatars[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile(1) } alt = "avatar of a person with grey hair"/></div>
-          <div className={this.state.avatars[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile(2) } alt = "avatar of a person with long brown hair"/></div>
+          <div className={this.state.avatars[0] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile(0)}><img className="profile-avatar" src = {profile1}  alt = "avatar of a person with dark hair"/></div>
+          <div className={this.state.avatars[3] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile(3)}><img className="profile-avatar" src = {profile4} alt = "avatar of a person with red hair"/></div>
+          <div className={this.state.avatars[1] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile(1)}><img className="profile-avatar" src = {profile2} alt = "avatar of a person with grey hair"/></div>
+          <div className={this.state.avatars[2] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile(2)}><img className="profile-avatar" src = {profile3} alt = "avatar of a person with long brown hair"/></div>
         </section>
 
         <div className = "linebr" />
@@ -88,15 +89,16 @@ class MakeProfile extends Component {
             className="player-name-input"
             value={this.state.playerName}
             name = "player2Name"
-            onChange = {this.changeHandler} />
+            onChange = {this.changeHandler} 
+            placeholder = "name" />
         </div>
 
         <div className="header">Choose your avatar</div>
           <section className="instructions">
-            <div className={this.state.avatar2[0] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile1} onClick={() => this.selectProfile2(0) } alt = "avatar of a person with dark hair"/></div>
-            <div className={this.state.avatar2[3] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile4} onClick={() => this.selectProfile2(3) } alt = "avatar of a person with red hair"/></div>
-            <div  className={this.state.avatar2[1] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile2} onClick={() => this.selectProfile2(1) } alt = "avatar of a person with grey hair"/></div>
-            <div className={this.state.avatar2[2] ? "avatar-wrapper-selected" : "avatar-wrapper" }><img className="profile-avatar" src = {profile3} onClick={() => this.selectProfile2(2) } alt = "avatar of a person with long brown hair"/></div>
+            <div className={this.state.avatar2[0] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile2(0) }><img className="profile-avatar" src = {profile1} alt = "avatar of a person with dark hair"/></div>
+            <div className={this.state.avatar2[3] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile2(3) }><img className="profile-avatar" src = {profile4} alt = "avatar of a person with red hair"/></div>
+            <div  className={this.state.avatar2[1] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile2(1) }><img className="profile-avatar" src = {profile2} alt = "avatar of a person with grey hair"/></div>
+            <div className={this.state.avatar2[2] ? "avatar-wrapper-selected" : "avatar-wrapper" } onClick={() => this.selectProfile2(2) }><img className="profile-avatar" src = {profile3}alt = "avatar of a person with long brown hair"/></div>
           </section>
 
        <Link to="/high-low"><button className="get-started" onClick={() => this.props.makeAvatar(this.state.profileSelected,  this.state.profileSelected2, this.state.player1Name, this.state.player2Name)}>Play</button></Link>
