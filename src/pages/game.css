@@ -89,6 +89,7 @@
     flex-direction: column;
     border-radius: 10px;
     margin-top: 20px;
+    position: relative;
 }
 
 .high-low {
@@ -101,12 +102,49 @@
 }
 
 .guess-header { 
-    font-size: 16px;
+    font-size: 20px;
+    border: 1px dotted red; 
     justify-self: flex-start;
+    margin-left: 50px;
+    padding: 10px;
     padding-bottom: 10px;
+    z-index: 0;
 }
 
+.guess-header:hover {
+    visibility: visible;
+}
+
+.in-game-instructions {
+    position: absolute;
+    z-index: 10;
+    background-color:#FF6473;
+    font-weight: 800;
+    border: 1px dashed white;
+    color: white;
+    border-radius: 10px;
+    left: 50px;
+    top: 10px;
+    padding: 10px 20px;
+}
+
+.in-game-instructions-draw {
+    position: absolute;
+    z-index: 10;
+    background-color:#FF6473;
+    font-weight: 800;
+    border: 1px dashed white;
+    color: white;
+    border-radius: 10px;
+    right: 0px;
+    width: 200px;
+    padding: 20px 20px;
+    box-shadow: 0px 0px 20px rgb(177, 177, 177);
+}
+
+
 .card-deck{
+    position: relative;
     margin-left: 20px;
     display: flex;
     align-items: center;
@@ -228,4 +266,5 @@
       flex-direction: column;
       align-items: center;
       width: 45%;
+      position: relative;
   }

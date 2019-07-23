@@ -26,7 +26,7 @@ class HiLowGame extends Component {
       playerGuess: props.playerGuess || null, 
       correct: props.correct || 0,
       modern: props.modern || false,
-      player1Pts: 10,
+      player1Pts: 0,
       player2Pts: 0,
       remaining: 52,
       Player1: true,
@@ -74,7 +74,7 @@ class HiLowGame extends Component {
 
 
   //allows the user to draw a new card from the deck
-  drawCard() {
+  drawCard = () => {
     let deck=this.state.cards;
     deck.push(this.state.drawnCard)
     this.setState ({
@@ -91,6 +91,7 @@ class HiLowGame extends Component {
 
                 this.setState ({
                   drawnCard: res.data.cards[0],
+                  remaining: this.state.remaining - 1,
                 })
 
                 this.checkGuess(drawnCardVal, cardDrawnBeforeVal)
@@ -264,9 +265,13 @@ class HiLowGame extends Component {
           
           {/* displays the deck of cards and the module for players to make a guess */}
           <div className="left-content">
-
+          {this.state.playerGuess === null && this.state.remaining === 52 ? <div data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true" className="in-game-instructions">
+                Player 1, guess if you think the next card drawn will be higher or lower than the current one displayed.
+              </div>: null}
             <div className = "guess-modal">
-              <div className="guess-header">Guess for next card (high/low): </div>
+              <div className="guess-header">
+               Guess if the next card will be higher or lower
+              </div>
               <div className="high-low">
                 <div onClick={this.guessHigh} className = {this.state.playerGuess ? "selected" : "unselected"} >High</div>
                 <div onClick={this.guessLow} className = {this.state.playerGuess===false ? "selected" : "unselected"}>Low</div> 
@@ -274,6 +279,9 @@ class HiLowGame extends Component {
             </div>
   
             <div className="card-deck">
+            {this.state.playerGuess && this.state.remaining === 52 ? <div data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true" className="in-game-instructions-draw">
+                  Next, click to draw the next card in the deck
+                </div> : null}
               <div className="drawn-cards">
                 <div className="draw-card-button" data-testid="drawCard">
                   {this.state.playerGuess !== null ? <button className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
