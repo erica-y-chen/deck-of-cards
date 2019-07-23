@@ -25,8 +25,6 @@ describe('<ChangePlayerModal />', () => {
 
     it('should display the turn is being passed if the user is passing the turn', () => {  
         const { container, getByTestId } = render(<Modal show={true} passing={true} correct={"4"}/>)
-
-        console.log(container.firstChild)
         const modal = getByTestId('modalText')
         expect(modal).toHaveTextContent('Turn passed Next player, click here to begin your turn');
     })

@@ -237,7 +237,7 @@ class HiLowGame extends Component {
             </div>
             <div className = "header-buttons">
             {!this.state.testing && <Link to="/"><div className= "how-to-play">How to Play</div></Link> }
-              <div className= "theme-button" onClick = {this.toggleModern}>Change Card Theme ({this.state.modern ? "Classic" : "Modern"})</div>
+              <div data-testid = "cardTheme" className= "theme-button" onClick = {this.toggleModern}>Change Card Theme ({this.state.modern ? "Classic" : "Modern"})</div>
             </div>
         </div>
 

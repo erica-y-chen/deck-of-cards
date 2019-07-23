@@ -16,7 +16,7 @@ describe('<instructions />', () => {
 
 
     it('should correctly render the title that is being passed through props', () => {  
-        const { container, getByTestId } = render(<Instructions title={"hello"}/>)
+        const { getByTestId } = render(<Instructions title={"hello"}/>)
         const title = getByTestId('title')
         expect(title).toHaveTextContent('hello');
     })
