@@ -32,6 +32,7 @@ class HiLowGame extends Component {
       Player1: true,
       showModal: false,
       Passing: false,
+      testing: false,
     };
   }
 
@@ -235,7 +236,7 @@ class HiLowGame extends Component {
                 <div className="game-title">high/low</div>
             </div>
             <div className = "header-buttons">
-              <Link to="/"><div className= "how-to-play">How to Play</div></Link>
+            {!this.state.testing && <Link to="/"><div className= "how-to-play">How to Play</div></Link> }
               <div className= "theme-button" onClick = {this.toggleModern}>Change Card Theme ({this.state.modern ? "Classic" : "Modern"})</div>
             </div>
         </div>
@@ -253,7 +254,7 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {playe2.name && player2.name.length>0 ? player2.name : null}</div>
+            <div className="player"><img src={player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {player2.name && player2.name.length>0 ? player2.name : null}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 
@@ -274,8 +275,8 @@ class HiLowGame extends Component {
   
             <div className="card-deck">
               <div className="drawn-cards">
-                <div className="draw-card-button">
-                  {this.state.playerGuess !== null ? <button data-testid="draw-card" className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
+                <div className="draw-card-button" >
+                  {this.state.playerGuess !== null ? <button className="draw-card" data-testid="drawCard" onClick = {this.drawCard}>draw card</button> : null}
                   <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]}/>
                 </div>
                 {drawnCard && 
@@ -288,7 +289,7 @@ class HiLowGame extends Component {
             {/* displays the number of correct guesses for this turn and all of the drawn cards for the turn */}
             <div className="drawn-cards-display">
               <div className="drawn-cards-header">
-                <div className = "num-correct">Correct: {this.state.correct}</div>
+                <div className = "num-correct" data-testid="numCorrect">Correct: {this.state.correct}</div>
                 {this.state.correct >= 3 ? <button className ="pass-button" onClick={this.passPlayer}>Pass Turn</button> : null} 
               </div>
               <div className="cards"> 
