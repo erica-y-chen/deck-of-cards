@@ -69,11 +69,11 @@ class HiLowGame extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
+  };
 
 
   //allows the user to draw a new card from the deck
-  drawCard = () => {
+  drawCard() {
     let deck=this.state.cards;
     deck.push(this.state.drawnCard)
     this.setState ({
@@ -243,7 +243,7 @@ class HiLowGame extends Component {
         {/* provides general information for the team--> player info, points, and remaining cards in the game to draw */}
         <div className ="game-info">
           <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {player1.name.length>0 ? player1.name : null}</div>
+            <div className="player"><img src={player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {player1.name && player1.name.length>0 ? player1.name : null}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
 
@@ -253,7 +253,7 @@ class HiLowGame extends Component {
           </div>
 
           <div className={!this.state.Player1 ? "player-info-selected" : "player-info"}>
-            <div className="player"><img src={player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {player2.name.length>0 ? player2.name : null}</div>
+            <div className="player"><img src={player2.avatar} className="game-avatar" alt = "player 2 avatar"/>Player 2: {playe2.name && player2.name.length>0 ? player2.name : null}</div>
             <div className="player-points">Points: {this.state.player2Pts}</div>
           </div>
 
@@ -275,7 +275,7 @@ class HiLowGame extends Component {
             <div className="card-deck">
               <div className="drawn-cards">
                 <div className="draw-card-button">
-                  {this.state.playerGuess !== null ? <button className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
+                  {this.state.playerGuess !== null ? <button data-testid="draw-card" className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
                   <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]}/>
                 </div>
                 {drawnCard && 
