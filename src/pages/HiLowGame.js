@@ -23,9 +23,9 @@ class HiLowGame extends Component {
       deckID: "",
       cards: [],
       drawnCard: null,
-      playerGuess: null, 
-      correct: 0,
-      modern: false,
+      playerGuess: props.playerGuess || null, 
+      correct: props.correct || 0,
+      modern: props.modern || false,
       player1Pts: 10,
       player2Pts: 0,
       remaining: 52,
@@ -243,7 +243,7 @@ class HiLowGame extends Component {
 
         {/* provides general information for the team--> player info, points, and remaining cards in the game to draw */}
         <div className ="game-info">
-          <div className={this.state.Player1 ? "player-info-selected" : "player-info"}>
+          <div data-testid = "player1-info" className={this.state.Player1 ? "player-info-selected" : "player-info"}>
             <div className="player"><img src={player1.avatar} className="game-avatar" alt="player 1 avatar"/>Player 1: {player1.name && player1.name.length>0 ? player1.name : null}</div>
             <div className="player-points">Points: {this.state.player1Pts}</div>
           </div>
@@ -275,8 +275,8 @@ class HiLowGame extends Component {
   
             <div className="card-deck">
               <div className="drawn-cards">
-                <div className="draw-card-button" >
-                  {this.state.playerGuess !== null ? <button className="draw-card" data-testid="drawCard" onClick = {this.drawCard}>draw card</button> : null}
+                <div className="draw-card-button" data-testid="drawCard">
+                  {this.state.playerGuess !== null ? <button className="draw-card" onClick = {this.drawCard}>draw card</button> : null}
                   <img className="card-back"  alt="back of card deck pattern" src={modernDeck.CLUBS[0]}/>
                 </div>
                 {drawnCard && 
@@ -288,7 +288,7 @@ class HiLowGame extends Component {
             
             {/* displays the number of correct guesses for this turn and all of the drawn cards for the turn */}
             <div className="drawn-cards-display">
-              <div className="drawn-cards-header">
+              <div className="drawn-cards-header" data-testid = "pass-player">
                 <div className = "num-correct" data-testid="numCorrect">Correct: {this.state.correct}</div>
                 {this.state.correct >= 3 ? <button className ="pass-button" onClick={this.passPlayer}>Pass Turn</button> : null} 
               </div>

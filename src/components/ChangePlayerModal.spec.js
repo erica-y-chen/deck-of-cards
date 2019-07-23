@@ -31,8 +31,6 @@ describe('<ChangePlayerModal />', () => {
 
     it('should display the player was wrong and the turn is being passed if there was an incorrect guess', () => {  
         const { container, getByTestId } = render(<Modal show={true} passing={false} correct={"4"}/>)
-
-        console.log(container.firstChild)
         const modal = getByTestId('modalText')
         expect(modal).toHaveTextContent("You're wrong! Next player, click here to begin your turn");
     })
